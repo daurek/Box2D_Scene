@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<scene>
+	<gameObjects>
+    <gameObject id="platform1">
+      <rigidBody type="box">
+        <position>
+          <x>0</x>
+          <y>5</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>215</green>
+          <blue>0</blue>
+        </color>
+        <dimensions>
+          <width>600</width>
+          <height>10</height>
+        </dimensions>
+      </rigidBody>
+    </gameObject>
+  </gameObjects>
+</scene>
