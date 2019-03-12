@@ -2,71 +2,149 @@
 <scene>
 	<gameObjects>
     <gameObject id="platform1">
-      <rigidBody type="box" bodyType="dynamic">
+      <rigidBody type="polygon" bodyType="static">
         <position>
           <x>0</x>
-          <y>5</y>
+          <y>0</y>
         </position>
         <color>
           <red>0</red>
-          <green>215</green>
-          <blue>0</blue>
-        </color>
-        <dimension>
-          <width>600</width>
-          <height>10</height>
-        </dimension>
-      </rigidBody>
-      <rigidBody type="circle" bodyType="dynamic">
-        <position>
-          <x>300</x>
-          <y>155</y>
-        </position>
-        <color>
-          <red>255</red>
-          <green>215</green>
-          <blue>0</blue>
-        </color>
-        <radius> 25 </radius>
-      </rigidBody>
-    </gameObject>
-    <gameObject id="platform2">
-      <rigidBody type="polygon" bodyType="dynamic">
-        <position>
-          <x>0</x>
-          <y>5</y>
-        </position>
-        <color>
-          <red>0</red>
-          <green>215</green>
-          <blue>0</blue>
+          <green>120</green>
+          <blue>250</blue>
         </color>
         <points>
           <position>
-            <x>50</x>
-            <y>56</y>
+            <x>0</x>
+            <y>0</y>
           </position>
           <position>
-            <x>70</x>
-            <y>87</y>
+            <x>0</x>
+            <y>80</y>
           </position>
           <position>
-            <x>100</x>
-            <y>120</y>
+            <x>80</x>
+            <y>80</y>
+          </position>
+          <position>
+            <x>140</x>
+            <y>20</y>
+          </position>
+          <position>
+            <x>140</x>
+            <y>0</y>
           </position>
         </points>
       </rigidBody>
-      <rigidBody type="circle" bodyType="dynamic">
+    </gameObject>
+    <gameObject id="platform2">
+      <rigidBody type="box" bodyType="static">
         <position>
-          <x>300</x>
-          <y>155</y>
+          <x>500</x>
+          <y>10</y>
         </position>
         <color>
-          <red>255</red>
-          <green>215</green>
-          <blue>0</blue>
+          <red>0</red>
+          <green>120</green>
+          <blue>250</blue>
         </color>
-        <radius> 25 </radius>
+        <dimension>
+          <width> 360 </width>
+          <height> 10 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="elevator1">
+      <rigidBody type="box" bodyType="static">
+        <position>
+          <x>942</x>
+          <y>10</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>250</green>
+          <blue>70</blue>
+        </color>
+        <dimension>
+          <width> 82 </width>
+          <height> 10 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="elevator2">
+      <rigidBody type="box" bodyType="static">
+        <position>
+          <x>280</x>
+          <y>410</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>250</green>
+          <blue>70</blue>
+        </color>
+        <dimension>
+          <width> 80 </width>
+          <height> 10 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="goal">
+      <rigidBody type="polygon" bodyType="static">
+        <position>
+          <x>0</x>
+          <y>400</y>
+        </position>
+        <color>
+          <red>250</red>
+          <green>30</green>
+          <blue>30</blue>
+        </color>
+        <points>
+          <position>
+            <x>0</x>
+            <y>0</y>
+          </position>
+          <position>
+            <x>100</x>
+            <y>-100</y>
+          </position>
+          <position>
+            <x>100</x>
+            <y>-80</y>
+          </position>
+          <position>
+            <x>0</x>
+            <y>20</y>
+          </position>
+        </points>
+      </rigidBody>
+      <rigidBody type="polygon" bodyType="static">
+        <position>
+          <x>100</x>
+          <y>400</y>
+        </position>
+        <color>
+          <red>250</red>
+          <green>30</green>
+          <blue>30</blue>
+        </color>
+        <points>
+          <position>
+            <x>0</x>
+            <y>-100</y>
+          </position>
+          <position>
+            <x>100</x>
+            <y>0</y>
+          </position>
+          <position>
+            <x>100</x>
+            <y>20</y>
+          </position>
+          <position>
+            <x>0</x>
+            <y>-80</y>
+          </position>
+        </points>
       </rigidBody>
     </gameObject>
   </gameObjects>

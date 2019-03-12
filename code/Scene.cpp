@@ -114,11 +114,8 @@ namespace rigid
 			std::vector< b2Vec2 > pointsList;
 
 			for (rapidxml::xml_node<>* positionNode = pointsNode->first_node(); positionNode; positionNode = positionNode->next_sibling())
-			{
 				pointsList.push_back({ std::stof(positionNode->first_node("x")->value()), std::stof(positionNode->first_node("y")->value())});
-			}
 
-			//std::cout << "				Dimension: x: " << dimension.x << " y: " << dimension.y << std::endl;
 			polygonRigidShape.Set(&pointsList[0], pointsList.size());
 
 			rigidShape = new b2PolygonShape(polygonRigidShape);
@@ -173,7 +170,6 @@ namespace rigid
 		{
 			std::cout << "\n Type " << shapeType << " incorrect or not supported";
 		}
-
 
 		return rigidBody;
 	}

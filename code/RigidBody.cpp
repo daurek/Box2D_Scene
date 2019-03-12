@@ -64,40 +64,41 @@ namespace rigid
 	{
 		switch (rigidShape->GetType())
 		{
-		case b2Shape::e_circle:
-		{
-			// Cast visual Shape
-			std::shared_ptr<CircleShape> circleShapeRef = std::dynamic_pointer_cast<CircleShape>(shape);
-			// Cast rigid Shape
-			b2CircleShape * circleRigidShape = dynamic_cast<b2CircleShape * >(rigidShape);
-			// Updating Position
-			circleShapeRef->setPosition(box2d_position_to_sfml_position(b2Mul(body->GetTransform(), circleRigidShape->m_p), (float)window.getSize().y) - Vector2f(circleRigidShape->m_radius, circleRigidShape->m_radius));
-			// Drawing shape
-			window.draw(*circleShapeRef);
-			break;
-		}
-		case b2Shape::e_polygon:
-		{
-			// Cast visual Shape
-			std::shared_ptr<ConvexShape> polygonShapeRef = std::dynamic_pointer_cast<ConvexShape>(shape);
-			// Cast rigid Shape
-			b2PolygonShape * polygonRigidShape = dynamic_cast<b2PolygonShape * >(rigidShape);
-			// Updating Position
-			int number_of_vertices = polygonRigidShape->GetVertexCount();
-			for (int index = 0; index < number_of_vertices; index++)
-				polygonShapeRef->setPoint ( index, box2d_position_to_sfml_position(b2Mul(body->GetTransform(), polygonRigidShape->GetVertex(index)), (float)window.getSize().y));
-			// Drawing shape
-			window.draw(*polygonShapeRef);
-			break;
-		}
-		case b2Shape::e_edge:
-		{
+			case b2Shape::e_circle:
+			{
+				// Cast visual Shape
+				std::shared_ptr<CircleShape> circleShapeRef = std::dynamic_pointer_cast<CircleShape>(shape);
+				// Cast rigid Shape
+				b2CircleShape * circleRigidShape = dynamic_cast<b2CircleShape * >(rigidShape);
+				// Updating Position
+				circleShapeRef->setPosition(box2d_position_to_sfml_position(b2Mul(body->GetTransform(), circleRigidShape->m_p), (float)window.getSize().y) - Vector2f(circleRigidShape->m_radius, circleRigidShape->m_radius));
+				// Drawing shape
+				window.draw(*circleShapeRef);
+				break;
+			}
+			case b2Shape::e_polygon:
+			{
+				// Cast visual Shape
+				std::shared_ptr<ConvexShape> polygonShapeRef = std::dynamic_pointer_cast<ConvexShape>(shape);
+				// Cast rigid Shape
+				b2PolygonShape * polygonRigidShape = dynamic_cast<b2PolygonShape * >(rigidShape);
+				// Updating Position
+				int number_of_vertices = polygonRigidShape->GetVertexCount();
+			
+				for (int index = 0; index < number_of_vertices; index++)
+					polygonShapeRef->setPoint ( index, box2d_position_to_sfml_position(b2Mul(body->GetTransform(), polygonRigidShape->GetVertex(index)), (float)window.getSize().y));
+				// Drawing shape
+				window.draw(*polygonShapeRef);
+				break;
+			}
+			case b2Shape::e_edge:
+			{
 
-			//NOT DONE _ USE POLYGON
-			break;
-		}
-		default:
-			break;
+				//NOT DONE _ USE POLYGON
+				break;
+			}
+			default:
+				break;
 		}
 
 		
