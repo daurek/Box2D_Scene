@@ -10,7 +10,7 @@ namespace rigid
 {
 	Scene::Scene(const std::string & filePath, b2Vec2 gravity)
 	{
-		physicsWorld = std::make_shared< b2World >(b2World(gravity));
+		physicsWorld = new b2World(gravity);
 		LoadScene(filePath);
 	}
 		
@@ -54,7 +54,7 @@ namespace rigid
 	{
 		std::shared_ptr< GameObject > gameObject = std::make_shared< GameObject >();
 
-		for (rapidxml::xml_node<>* rigidBodyNode = gameObjectNode->first_node(); gameObjectNode; gameObjectNode = gameObjectNode->next_sibling())
+		for (rapidxml::xml_node<>* rigidBodyNode = gameObjectNode->first_node(); rigidBodyNode; rigidBodyNode = rigidBodyNode->next_sibling())
 		{
 			// Get RigidBody
 			std::shared_ptr< RigidBody > rigidBody = LoadRigidBody(rigidBodyNode);
@@ -71,50 +71,109 @@ namespace rigid
 
 	std::shared_ptr<RigidBody> Scene::LoadRigidBody(rapidxml::xml_node<>* rigidBodyNode)
 	{
-		std::shared_ptr< RigidBody > rigidBody;// = std::make_shared< RigidBody >();
+		// Create ptr to Rigibody
+		std::shared_ptr< RigidBody > rigidBody;
 
-		std::string rigidBodyType = rigidBodyNode->first_attribute()->value();
+		// _______________________________________________________________________ Get Common properties
 
+		// Get type
+		std::string shapeType = rigidBodyNode->first_attribute()->value();
+
+		// Get Position
+		rapidxml::xml_node<>* positionNode = rigidBodyNode->first_node("position");
 		b2Vec2 position
 		{
-			std::stof(rigidBodyNode->first_node("position")->first_node("x")->value()),
-			std::stof(rigidBodyNode->first_node("position")->first_node("y")->value())
+			std::stof(positionNode->first_node("x")->value()),
+			std::stof(positionNode->first_node("y")->value())
 		};
 
-		std::cout << "		Position: x: " << position.x << " y: " << position.y << std::endl;
-		
-		std::cout << "		Type: " << rigidBodyType << std::endl;
+		// Get Color
+		rapidxml::xml_node<>* colorNode = rigidBodyNode->first_node("color");
+		sf::Color color
+		{
+			sf::Uint8(std::stoi(colorNode->first_node("red")->value())),
+			sf::Uint8(std::stof(colorNode->first_node("green")->value())),
+			sf::Uint8(std::stof(colorNode->first_node("blue")->value()))
+		};
 
-		if		(rigidBodyType == "polygon"	)
+		// Log Common properties
+		std::cout << std::endl;
+		std::cout << "			Position: x: " << position.x << " y: " << position.y << std::endl;
+		std::cout << "			Color: red: " << int(color.r) << " green: " << int(color.g) << " blue: " << int(color.b) << std::endl;
+		std::cout << "			Type: " << shapeType << std::endl;
+
+		// _______________________________________________________________________ Create given type
+		b2Shape * rigidShape;
+
+		if		(shapeType == "polygon"	)
 		{
 			b2PolygonShape polygonRigidShape;
-			polygonRigidShape.SetAsBox(std::stof(rigidBodyNode->first_node("dimensions")->first_node("width")->value()), 25.f);
 
-			rigidBody = std::make_shared< RigidBody >( RigidBody{ physicsWorld,{ 0,5 }, b2BodyType::b2_staticBody, &polygonRigidShape,  sf::Color::Green, 100.f });
+			rapidxml::xml_node<>* pointsNode = rigidBodyNode->first_node("points");
+
+			std::vector< b2Vec2 > pointsList;
+
+			for (rapidxml::xml_node<>* positionNode = pointsNode->first_node(); positionNode; positionNode = positionNode->next_sibling())
+			{
+				pointsList.push_back({ std::stof(positionNode->first_node("x")->value()), std::stof(positionNode->first_node("y")->value())});
+			}
+
+			//std::cout << "				Dimension: x: " << dimension.x << " y: " << dimension.y << std::endl;
+			polygonRigidShape.Set(&pointsList[0], pointsList.size());
+
+			rigidShape = new b2PolygonShape(polygonRigidShape);
 		}
-		else if (rigidBodyType == "box")
+		else if (shapeType == "box")
 		{
 			b2PolygonShape polygonRigidShape;
+
+			rapidxml::xml_node<>* dimensionNode = rigidBodyNode->first_node("dimension");
 
 			b2Vec2 dimension
 			{ 
-				std::stof(rigidBodyNode->first_node("dimensions")->first_node("width")->value()),
-				std::stof(rigidBodyNode->first_node("dimensions")->first_node("height")->value()) 
+				std::stof(dimensionNode->first_node("width")->value()),
+				std::stof(dimensionNode->first_node("height")->value())
 			};
 
-			std::cout << "			Dimension: x: " << dimension.x << " y: " << dimension.y << std::endl;
+			std::cout << "				Dimension: x: " << dimension.x << " y: " << dimension.y << std::endl;
 			polygonRigidShape.SetAsBox(dimension.x, dimension.y);
 
-			rigidBody = std::make_shared< RigidBody >(RigidBody{ physicsWorld, { position.x, position.y }, b2BodyType::b2_staticBody, &polygonRigidShape,  sf::Color::Green, 100.f });
+			rigidShape = new b2PolygonShape(polygonRigidShape);
 		}
-		else if (rigidBodyType == "circle"	)
+		else if (shapeType == "circle"	)
 		{
+			b2CircleShape circleRigidShape;
 
+			float radius = std::stof(rigidBodyNode->first_node("radius")->value());
+			std::cout << "				Radius: " << radius << std::endl;
+
+			circleRigidShape.m_radius = radius;
+
+			rigidShape = new b2CircleShape (circleRigidShape);
+		}
+
+		if (rigidShape != nullptr)
+		{
+			// Get body type
+			b2BodyType bodyType;
+			std::string rigidBodyType = rigidBodyNode->first_attribute("bodyType")->value();
+			if (rigidBodyType == "static")
+				bodyType = b2_staticBody;
+			else if(rigidBodyType == "dynamic")
+				bodyType = b2_dynamicBody;
+			else if (rigidBodyType == "kinetic")
+				bodyType = b2_kinematicBody;
+			else bodyType = b2_dynamicBody;
+			std::cout << "				Body Type: " << rigidBodyType << std::endl;
+
+			// Create rigid body with all the properties
+			rigidBody = std::make_shared< RigidBody >(RigidBody{ *physicsWorld,{ position.x, position.y }, bodyType, rigidShape, color, 0.1f });
 		}
 		else
 		{
-			std::cout << "\n Type " << rigidBodyType << " incorrect or not supported";
+			std::cout << "\n Type " << shapeType << " incorrect or not supported";
 		}
+
 
 		return rigidBody;
 	}

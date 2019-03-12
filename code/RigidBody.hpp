@@ -18,9 +18,13 @@ namespace rigid
 	public:
 
 		RigidBody(){};
-		RigidBody(std::shared_ptr< b2World > physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color = sf::Color::Magenta, float density = 1);
+		RigidBody(b2World & physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color = sf::Color::Magenta, float density = 1);
 
-		~RigidBody(){}
+		~RigidBody()
+		{
+			// Bodies and fixtures do not need to get deleted since World already does it for us when deleted (World deleted on scene)
+			// http://www.iforce2d.net/b2dtut/worlds
+		}
 
 		b2BodyDef body_definition;
 		b2FixtureDef body_fixture;

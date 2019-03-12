@@ -2,20 +2,71 @@
 <scene>
 	<gameObjects>
     <gameObject id="platform1">
-      <rigidBody type="box">
+      <rigidBody type="box" bodyType="dynamic">
         <position>
           <x>0</x>
           <y>5</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>215</green>
+          <blue>0</blue>
+        </color>
+        <dimension>
+          <width>600</width>
+          <height>10</height>
+        </dimension>
+      </rigidBody>
+      <rigidBody type="circle" bodyType="dynamic">
+        <position>
+          <x>300</x>
+          <y>155</y>
         </position>
         <color>
           <red>255</red>
           <green>215</green>
           <blue>0</blue>
         </color>
-        <dimensions>
-          <width>600</width>
-          <height>10</height>
-        </dimensions>
+        <radius> 25 </radius>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="platform2">
+      <rigidBody type="polygon" bodyType="dynamic">
+        <position>
+          <x>0</x>
+          <y>5</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>215</green>
+          <blue>0</blue>
+        </color>
+        <points>
+          <position>
+            <x>50</x>
+            <y>56</y>
+          </position>
+          <position>
+            <x>70</x>
+            <y>87</y>
+          </position>
+          <position>
+            <x>100</x>
+            <y>120</y>
+          </position>
+        </points>
+      </rigidBody>
+      <rigidBody type="circle" bodyType="dynamic">
+        <position>
+          <x>300</x>
+          <y>155</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>215</green>
+          <blue>0</blue>
+        </color>
+        <radius> 25 </radius>
       </rigidBody>
     </gameObject>
   </gameObjects>

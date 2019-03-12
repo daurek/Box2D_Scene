@@ -4,12 +4,12 @@
 
 namespace rigid
 {
-	RigidBody::RigidBody(std::shared_ptr<b2World> physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color, float density)
+	RigidBody::RigidBody(b2World & physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color, float density)
 	{
 		//Set body properties and create
 		body_definition.type = bodyType;
 		body_definition.position.Set(position.x, position.y);          
-		body = physicsWorld->CreateBody(&body_definition);
+		body = physicsWorld.CreateBody(&body_definition);
 		
 		// Set fixture properties and create
 		body_fixture.shape = _shape;

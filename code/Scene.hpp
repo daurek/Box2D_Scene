@@ -17,6 +17,8 @@ namespace rigid
 
 		Scene(const std::string & filePath, b2Vec2 gravity = { 0, -100 });
 
+		~Scene() { delete physicsWorld; }
+
 		void							LoadScene		(const std::string & filePath);
 		void							LoadGameObjects	(rapidxml::xml_node<>* gameObjectsNode);
 		std::shared_ptr< GameObject >	LoadGameObject	(rapidxml::xml_node<>* gameObjectNode);
@@ -25,7 +27,7 @@ namespace rigid
 		void							Update(float deltaTime);
 		void							Render(RenderWindow & window);
 
-		std::shared_ptr< b2World >								physicsWorld;
+		b2World *												physicsWorld;
 		std::map< std::string, std::shared_ptr< GameObject >>	gameObjects;
 	};
 
