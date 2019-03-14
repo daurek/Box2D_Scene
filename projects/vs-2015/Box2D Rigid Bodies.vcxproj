@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\code\ContactListener.cpp" />
     <ClCompile Include="..\..\code\GameObject.cpp" />
     <ClCompile Include="..\..\code\Joint.cpp" />
     <ClCompile Include="..\..\code\main.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="..\..\code\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\code\ContactListener.hpp" />
     <ClInclude Include="..\..\code\GameObject.hpp" />
     <ClInclude Include="..\..\code\Joint.hpp" />
     <ClInclude Include="..\..\code\RigidBody.hpp" />

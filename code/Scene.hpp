@@ -10,7 +10,7 @@
 
 namespace rigid
 {
-	class Scene
+	class Scene 
 	{
 
 	public:

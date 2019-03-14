@@ -5,6 +5,7 @@
 #include "rapidxml_utils.hpp"
 // Project
 #include "Scene.hpp"
+#include "ContactListener.hpp"
 
 namespace rigid
 {
@@ -12,6 +13,9 @@ namespace rigid
 	{
 		physicsWorld = new b2World(gravity);
 		LoadScene(filePath);
+
+		ContactListener * contactListenerInstance = new ContactListener{};
+		physicsWorld->SetContactListener(contactListenerInstance);
 	}
 		
 	void Scene::LoadScene(const std::string & filePath)
@@ -92,9 +96,10 @@ namespace rigid
 		sf::Color color
 		{
 			sf::Uint8(std::stoi(colorNode->first_node("red")->value())),
-			sf::Uint8(std::stof(colorNode->first_node("green")->value())),
-			sf::Uint8(std::stof(colorNode->first_node("blue")->value()))
+			sf::Uint8(std::stoi(colorNode->first_node("green")->value())),
+			sf::Uint8(std::stoi(colorNode->first_node("blue")->value()))
 		};
+
 
 		// Log Common properties
 		std::cout << std::endl;
@@ -163,8 +168,12 @@ namespace rigid
 			else bodyType = b2_dynamicBody;
 			std::cout << "				Body Type: " << rigidBodyType << std::endl;
 
+			// Get Gravity scale
+			rapidxml::xml_attribute<>* gravityScaleNode = rigidBodyNode->first_attribute("gravityScale");
+			float gravityScale = std::stof(gravityScaleNode->value());
+
 			// Create rigid body with all the properties
-			rigidBody = std::make_shared< RigidBody >(RigidBody{ *physicsWorld,{ position.x, position.y }, bodyType, rigidShape, color, 0.1f });
+			rigidBody = std::make_shared< RigidBody >(RigidBody{ *physicsWorld,{ position.x, position.y }, bodyType, rigidShape, color, 0.1f, gravityScale });
 		}
 		else
 		{

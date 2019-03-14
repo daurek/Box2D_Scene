@@ -35,7 +35,6 @@ int main ()
         {
             if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
                 running = false;
-            
         }
 
         // Update:
