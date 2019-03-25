@@ -149,22 +149,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\code\CircleParticle.cpp" />
     <ClCompile Include="..\..\code\ContactListener.cpp" />
+    <ClCompile Include="..\..\code\Elevator.cpp" />
     <ClCompile Include="..\..\code\GameObject.cpp" />
     <ClCompile Include="..\..\code\Joint.cpp" />
     <ClCompile Include="..\..\code\main.cpp" />
+    <ClCompile Include="..\..\code\ParticleEmitter.cpp" />
+    <ClCompile Include="..\..\code\RectangleArea.cpp" />
     <ClCompile Include="..\..\code\RigidBody.cpp" />
     <ClCompile Include="..\..\code\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\code\Area.hpp" />
+    <ClInclude Include="..\..\code\CircleParticle.hpp" />
     <ClInclude Include="..\..\code\ContactListener.hpp" />
+    <ClInclude Include="..\..\code\Elevator.hpp" />
     <ClInclude Include="..\..\code\GameObject.hpp" />
     <ClInclude Include="..\..\code\Joint.hpp" />
+    <ClInclude Include="..\..\code\Particle.hpp" />
+    <ClInclude Include="..\..\code\ParticleEmitter.hpp" />
+    <ClInclude Include="..\..\code\Pool.hpp" />
+    <ClInclude Include="..\..\code\RectangleArea.hpp" />
     <ClInclude Include="..\..\code\RigidBody.hpp" />
     <ClInclude Include="..\..\code\Scene.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\..\assets\scene.xml" />
+    <Xml Include="..\..\assets\scene.xml">
+      <SubType>Designer</SubType>
+    </Xml>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

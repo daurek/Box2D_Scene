@@ -4,22 +4,23 @@
 
 namespace rigid
 {
-	RigidBody::RigidBody(b2World & physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color, float density, float gravityScale)
+	RigidBody::RigidBody(b2World & physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color, float density, float gravityScale, float friction, float restitution)
 	{
 		//Set body properties and create
 		b2BodyDef body_definition;
 		body_definition.type = bodyType;
 		body_definition.position.Set(position.x, position.y);          
 		body = physicsWorld.CreateBody(&body_definition);
+		body->SetUserData(this);
+		body->SetGravityScale(gravityScale);
 		
 		// Set fixture properties and create
 		b2FixtureDef bodyFixture;
 		bodyFixture.shape = _shape;
 		bodyFixture.density = density;
-		bodyFixture.restitution = 0.75f;
-		bodyFixture.friction = 0.50f;
-		body->SetGravityScale(gravityScale);
-		body->SetUserData(this);
+		bodyFixture.friction = friction;
+		bodyFixture.restitution = restitution;
+
 		body->CreateFixture(&bodyFixture);
 
 		// Check type
@@ -64,7 +65,7 @@ namespace rigid
 		shape->setFillColor(color);
 	}
 
-	void RigidBody::Render(RenderWindow & window)
+	void RigidBody::Render(sf::RenderWindow & window)
 	{
 		switch (rigidShape->GetType())
 		{
@@ -106,11 +107,6 @@ namespace rigid
 		}
 
 		
-	}
-
-	void RigidBody::StartContact(RigidBody & contactBody) 
-	{
-		std::cout << "test";
 	}
 
 }

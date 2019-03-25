@@ -155,7 +155,7 @@
     <gameObject id="circle">
       <rigidBody type="circle" bodyType="dynamic" gravityScale="1">
         <position>
-          <x>100</x>
+          <x>30</x>
           <y>200</y>
         </position>
         <color>
@@ -163,7 +163,7 @@
           <green>250</green>
           <blue>70</blue>
         </color>
-        <radius> 25 </radius>
+        <radius> 10 </radius>
       </rigidBody>
     </gameObject>
     <gameObject id="goal">
@@ -226,5 +226,6 @@
         </points>
       </rigidBody>
     </gameObject>
+   
   </gameObjects>
 </scene>

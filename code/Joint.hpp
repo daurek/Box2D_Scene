@@ -10,9 +10,8 @@ namespace rigid
 
 	public:
 
-		Joint(std::shared_ptr< b2World > physicsWorld, RigidBody first, RigidBody second, b2JointType _type);
+		Joint(b2World & physicsWorld, std::shared_ptr<RigidBody> first, std::shared_ptr<RigidBody> second, b2JointDef * jointDef);
 		
-		b2JointDef jointDef;
 		b2Joint * joint;
 	};
 

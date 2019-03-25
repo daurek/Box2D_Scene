@@ -7,6 +7,7 @@
 #include "rapidxml.hpp"
 // Project
 #include "GameObject.hpp"
+#include "ParticleEmitter.hpp"
 
 namespace rigid
 {
@@ -25,10 +26,11 @@ namespace rigid
 		std::shared_ptr< RigidBody >	LoadRigidBody	(rapidxml::xml_node<>* rigidBodyNode);
 
 		void							Update(float deltaTime);
-		void							Render(RenderWindow & window);
+		void							Render(sf::RenderWindow & window);
 
-		b2World *												physicsWorld;
-		std::map< std::string, std::shared_ptr< GameObject >>	gameObjects;
+		b2World *															physicsWorld;
+		std::map< std::string, std::shared_ptr< GameObject >>				gameObjects;
+		std::vector < std::shared_ptr< RectangleAreaParticleEmitter >>		particleEmitters;
 	};
 
 }

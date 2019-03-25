@@ -14,7 +14,7 @@ using namespace rigid;
 
 int main ()
 {
-    RenderWindow window(sf::VideoMode(1024, 800), "Box2D Rigid Bodies", sf::Style::Titlebar | sf::Style::Close, sf::ContextSettings(32));
+    sf::RenderWindow window(sf::VideoMode(1024, 800), "Box2D Rigid Bodies", sf::Style::Titlebar | sf::Style::Close, sf::ContextSettings(32));
     window.setVerticalSyncEnabled (true);
 
 	Scene scene{ "../../assets/scene.xml" };

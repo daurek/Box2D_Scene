@@ -14,10 +14,10 @@ namespace rigid
 
 		GameObject() {};
 
-		std::vector< std::shared_ptr< RigidBody > > rigidBodies;
-		std::vector<Joint> joints;
+		std::vector< std::shared_ptr< RigidBody >	> rigidBodies;
+		std::vector< std::shared_ptr< Joint >		> joints;
 
-		void render(RenderWindow & window);
+		void Render(sf::RenderWindow & window);
 	};
 
 }
