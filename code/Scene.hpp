@@ -30,7 +30,7 @@ namespace rigid
 
 		b2World *															physicsWorld;
 		std::map< std::string, std::shared_ptr< GameObject >>				gameObjects;
-		std::vector < std::shared_ptr< RectangleAreaParticleEmitter >>		particleEmitters;
+		std::vector < std::shared_ptr< CircleParticleEmitter >>		particleEmitters;
 	};
 
 }

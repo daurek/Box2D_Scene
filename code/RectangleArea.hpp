@@ -4,35 +4,22 @@
 
 namespace rigid
 {
-	class RectangleArea : Area
+	class RectangleArea : public Area
 	{
-		float left_x;
-		float bottom_y;
-		float width;
-		float height;
+		sf::Vector2f position;
+		sf::Vector2f dimension;
 
 	public:
 
-		RectangleArea
-		(
-			float given_left_x,
-			float given_bottom_y,
-			float given_width,
-			float given_height
-		)
-		{
-			left_x = given_left_x;
-			bottom_y = given_bottom_y;
-			width = given_width;
-			height = given_height;
-		}
+		RectangleArea(sf::Vector2f _position, sf::Vector2f _dimension)
+			: position(_position), dimension(_dimension) {}
 
 		virtual sf::Vector2f get_random_position() override
 		{
 			return sf::Vector2f
 			{
-				left_x + float(rand() % int(width)),
-				bottom_y + float(rand() % int(height)),
+				position.x + float(rand() % int(dimension.x)),
+				position.y + float(rand() % int(dimension.y)),
 			};
 		}
 	};

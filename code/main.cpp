@@ -21,6 +21,7 @@ int main ()
 
     bool running = true;
 
+	
     sf::Clock timer;
     float deltaTime = 0.017f;          // ~60 fps
 

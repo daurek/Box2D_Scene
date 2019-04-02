@@ -5,24 +5,26 @@
 
 namespace rigid
 {
-	class CircleParticle : Particle
+	class CircleParticle : public Particle
 	{
 	public:
 
-		CircleParticle(sf::Vector2f startingPosition) : Particle{ startingPosition }
+		CircleParticle(sf::Vector2f _position, sf::Vector2f _direction, sf::Color _color) : 
+			Particle{ _position, _direction, _color }
 		{
+			shape = new sf::CircleShape(3);
+			shape->setFillColor(color);
 		}
 
 		virtual void Update(float deltaTime) override
 		{
-			position.y += 1.f;
+			position += direction;
+			shape->setPosition(position.x, position.y);
 		}
 
 		virtual void Render(sf::RenderWindow & window) override
 		{
-			sf::CircleShape a{ 3 };
-			a.setPosition(position.x, position.y);
-			window.draw(a);
+			window.draw(*shape);
 		}
 	};
 }

@@ -156,13 +156,13 @@
     <ClCompile Include="..\..\code\Joint.cpp" />
     <ClCompile Include="..\..\code\main.cpp" />
     <ClCompile Include="..\..\code\ParticleEmitter.cpp" />
-    <ClCompile Include="..\..\code\RectangleArea.cpp" />
     <ClCompile Include="..\..\code\RigidBody.cpp" />
     <ClCompile Include="..\..\code\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\code\Area.hpp" />
     <ClInclude Include="..\..\code\CircleParticle.hpp" />
+    <ClInclude Include="..\..\code\ConeArea.hpp" />
     <ClInclude Include="..\..\code\ContactListener.hpp" />
     <ClInclude Include="..\..\code\Elevator.hpp" />
     <ClInclude Include="..\..\code\GameObject.hpp" />

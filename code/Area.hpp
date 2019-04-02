@@ -7,6 +7,6 @@ namespace rigid
 	class Area
 	{
 	public:
-		virtual sf::Vector2f get_random_position() = 0;
+		virtual sf::Vector2f get_random_position()	= 0;
 	};
 }
