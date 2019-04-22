@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <scene>
 	<gameObjects>
-    <gameObject id="platform1">
-      <rigidBody type="polygon" bodyType="static" gravityScale="0">
+    <gameObject id="platform1" classType="Platform">
+      <rigidBody name="platform" type="polygon" bodyType="static" gravityScale="0" >
         <position>
           <x>0</x>
           <y>0</y>
@@ -36,8 +36,8 @@
         </points>
       </rigidBody>
     </gameObject>
-    <gameObject id="platform2">
-      <rigidBody type="box" bodyType="static" gravityScale="0">
+    <gameObject id="platform2" classType="Platform">
+      <rigidBody name="platform" type="box" bodyType="static" gravityScale="0">
         <position>
           <x>500</x>
           <y>10</y>
@@ -53,8 +53,8 @@
         </dimension>
       </rigidBody>
     </gameObject>
-    <gameObject id="platform3">
-      <rigidBody type="box" bodyType="static" gravityScale="0">
+    <gameObject id="platform3" classType="Platform">
+      <rigidBody name="platform" type="box" bodyType="static" gravityScale="0">
         <position>
           <x>460</x>
           <y>260</y>
@@ -70,8 +70,8 @@
         </dimension>
       </rigidBody>
     </gameObject>
-    <gameObject id="platform4">
-      <rigidBody type="polygon" bodyType="static" gravityScale="0">
+    <gameObject id="platform4" classType="Platform">
+      <rigidBody name="platform" type="polygon" bodyType="static" gravityScale="0">
         <position>
           <x>560</x>
           <y>250</y>
@@ -101,8 +101,8 @@
         </points>
       </rigidBody>
     </gameObject>
-    <gameObject id="platform5">
-      <rigidBody type="box" bodyType="static" gravityScale="0">
+    <gameObject id="platform5" classType="Platform">
+      <rigidBody name="platform" type="box" bodyType="static" gravityScale="0">
         <position>
           <x>790</x>
           <y>410</y>
@@ -118,28 +118,45 @@
         </dimension>
       </rigidBody>
     </gameObject>
-    <gameObject id="elevator1">
-      <rigidBody type="box" bodyType="kinematic" gravityScale="0">
+    <gameObject id="elevator1Anchor" classType="Platform">
+      <rigidBody name="anchor" type="box" bodyType="static" gravityScale="1">
         <position>
           <x>942</x>
-          <y>10</y>
+          <y>-65</y>
         </position>
         <color>
           <red>0</red>
-          <green>250</green>
-          <blue>70</blue>
+          <green>0</green>
+          <blue>250</blue>
         </color>
         <dimension>
-          <width> 82 </width>
+          <width> 80 </width>
           <height> 10 </height>
         </dimension>
       </rigidBody>
     </gameObject>
-    <gameObject id="elevator2">
-      <rigidBody type="box" bodyType="kinematic" gravityScale="0">
+    <gameObject id="elevator2Anchor" classType="Platform">
+      <rigidBody name="anchor" type="box" bodyType="static" gravityScale="1">
         <position>
-          <x>280</x>
-          <y>260</y>
+          <x>275</x>
+          <y>-65</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>0</green>
+          <blue>250</blue>
+        </color>
+        <dimension>
+          <width> 80 </width>
+          <height> 10 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="elevator1" classType="Elevator">
+      <rigidBody name="elevator" type="box" bodyType="dynamic" gravityScale="1">
+        <position>
+          <x>942</x>
+          <y>0</y>
         </position>
         <color>
           <red>0</red>
@@ -152,11 +169,28 @@
         </dimension>
       </rigidBody>
     </gameObject>
-    <gameObject id="circle">
-      <rigidBody type="circle" bodyType="dynamic" gravityScale="1">
+    <gameObject id="elevator2" classType="Elevator">
+      <rigidBody name="elevator" type="box" bodyType="dynamic" gravityScale="1">
         <position>
-          <x>30</x>
-          <y>200</y>
+          <x>275</x>
+          <y>250</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>250</green>
+          <blue>70</blue>
+        </color>
+        <dimension>
+          <width> 70 </width>
+          <height> 10 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="circle" classType="Player">
+      <rigidBody name="circle" type="circle" bodyType="dynamic" gravityScale="1">
+        <position>
+          <x>50</x>
+          <y>150</y>
         </position>
         <color>
           <red>0</red>
@@ -166,8 +200,8 @@
         <radius> 10 </radius>
       </rigidBody>
     </gameObject>
-    <gameObject id="goal">
-      <rigidBody type="polygon" bodyType="static" gravityScale="0">
+    <gameObject id="goal" classType="Goal">
+      <rigidBody name="goal1" type="polygon" bodyType="static" gravityScale="1">
         <position>
           <x>0</x>
           <y>400</y>
@@ -196,7 +230,7 @@
           </position>
         </points>
       </rigidBody>
-      <rigidBody type="polygon" bodyType="dynamic" gravityScale="0">
+      <rigidBody name="goal2" type="polygon" bodyType="static" gravityScale="1">
         <position>
           <x>100</x>
           <y>400</y>
@@ -226,6 +260,123 @@
         </points>
       </rigidBody>
     </gameObject>
-   
+    <gameObject id="fire" classType="Fire">
+      <rigidBody name="fire" type="box" bodyType="static" gravityScale="1">
+        <position>
+          <x>528</x>
+          <y>50</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>250</green>
+          <blue>70</blue>
+        </color>
+        <dimension>
+          <width> 30 </width>
+          <height> 40 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
+    <gameObject id="car" classType="Car">
+      <rigidBody name="chassis" type="box" bodyType="dynamic" density="0.8">
+        <position>
+          <x>40</x>
+          <y>110</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+        </color>
+        <dimension>
+          <width> 30 </width>
+          <height> 10 </height>
+        </dimension>
+      </rigidBody>
+      <rigidBody name="wheel1" type="circle" bodyType="dynamic" density="0.3">
+        <position>
+          <x>40</x>
+          <y>100</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>0</green>
+          <blue>255</blue>
+        </color>
+        <radius> 12 </radius>
+      </rigidBody>
+      <rigidBody name="wheel2" type="circle" bodyType="dynamic" density="0.3">
+        <position>
+          <x>40</x>
+          <y>100</y>
+        </position>
+        <color>
+          <red>0</red>
+          <green>0</green>
+          <blue>255</blue>
+        </color>
+        <radius>13</radius>
+      </rigidBody>
+      <rigidBody name="gripLeft" type="box" bodyType="dynamic" density="0.1">
+        <position>
+          <x>40</x>
+          <y>100</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+        </color>
+        <dimension>
+          <width> 3 </width>
+          <height> 15 </height>
+        </dimension>
+      </rigidBody>
+      <rigidBody name="gripRight" type="box" bodyType="dynamic" density="0.1">
+        <position>
+          <x>40</x>
+          <y>100</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+        </color>
+        <dimension>
+          <width> 3 </width>
+          <height> 15 </height>
+        </dimension>
+      </rigidBody>
+      <rigidBody name="closer" type="box" bodyType="dynamic" density="0.1">
+        <position>
+          <x>40</x>
+          <y>140</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+        </color>
+        <dimension>
+          <width> 30 </width>
+          <height> 3 </height>
+        </dimension>
+      </rigidBody>
+      <rigidBody name="water" type="box" bodyType="dynamic" density="0.1" isSensor="1">
+        <position>
+          <x>105</x>
+          <y>110</y>
+        </position>
+        <color>
+          <red>255</red>
+          <green>0</green>
+          <blue>0</blue>
+        </color>
+        <dimension>
+          <width> 15 </width>
+          <height> 5 </height>
+        </dimension>
+      </rigidBody>
+    </gameObject>
   </gameObjects>
 </scene>

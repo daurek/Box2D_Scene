@@ -149,27 +149,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\code\CircleParticle.cpp" />
+    <ClCompile Include="..\..\code\Car.cpp" />
     <ClCompile Include="..\..\code\ContactListener.cpp" />
     <ClCompile Include="..\..\code\Elevator.cpp" />
+    <ClCompile Include="..\..\code\Fire.cpp" />
     <ClCompile Include="..\..\code\GameObject.cpp" />
+    <ClCompile Include="..\..\code\Goal.cpp" />
     <ClCompile Include="..\..\code\Joint.cpp" />
     <ClCompile Include="..\..\code\main.cpp" />
-    <ClCompile Include="..\..\code\ParticleEmitter.cpp" />
     <ClCompile Include="..\..\code\RigidBody.cpp" />
     <ClCompile Include="..\..\code\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\code\Area.hpp" />
+    <ClInclude Include="..\..\code\Car.hpp" />
     <ClInclude Include="..\..\code\CircleParticle.hpp" />
-    <ClInclude Include="..\..\code\ConeArea.hpp" />
     <ClInclude Include="..\..\code\ContactListener.hpp" />
     <ClInclude Include="..\..\code\Elevator.hpp" />
+    <ClInclude Include="..\..\code\Fire.hpp" />
     <ClInclude Include="..\..\code\GameObject.hpp" />
+    <ClInclude Include="..\..\code\Goal.hpp" />
     <ClInclude Include="..\..\code\Joint.hpp" />
     <ClInclude Include="..\..\code\Particle.hpp" />
     <ClInclude Include="..\..\code\ParticleEmitter.hpp" />
-    <ClInclude Include="..\..\code\Pool.hpp" />
+    <ClInclude Include="..\..\code\Platform.hpp" />
+    <ClInclude Include="..\..\code\Player.hpp" />
     <ClInclude Include="..\..\code\RectangleArea.hpp" />
     <ClInclude Include="..\..\code\RigidBody.hpp" />
     <ClInclude Include="..\..\code\Scene.hpp" />

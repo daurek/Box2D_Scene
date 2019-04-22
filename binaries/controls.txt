@@ -1,0 +1,8 @@
+A - Left
+D - Right
+S - Brake
+F - Release water
+G - Stop water
+Z - Close
+X - Open
+R - Reset

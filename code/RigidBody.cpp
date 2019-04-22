@@ -1,18 +1,32 @@
+/// ----------------------------------------------------------------------------------------------------------------------
+/// BOX2D SCENE
+/// \class rigid::RigidBody
+///
+/// \author Ilyass Sofi Hlimi
+/// \date 22/04/2019
+///
+/// Contact: ilyassgame@gmail.com
+/// ----------------------------------------------------------------------------------------------------------------------
+
+// Header
 #include "RigidBody.hpp"
 
+// System
 #include <iostream>
 
 namespace rigid
 {
-	RigidBody::RigidBody(b2World & physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color, float density, float gravityScale, float friction, float restitution)
+	RigidBody::RigidBody(b2World & physicsWorld, b2Vec2 position, b2BodyType bodyType, b2Shape * _shape, sf::Color color, float density, float gravityScale, float friction, float restitution, bool isSensor)
 	{
 		//Set body properties and create
 		b2BodyDef body_definition;
 		body_definition.type = bodyType;
 		body_definition.position.Set(position.x, position.y);          
 		body = physicsWorld.CreateBody(&body_definition);
-		body->SetUserData(this);
 		body->SetGravityScale(gravityScale);
+
+		if (body_definition.type == b2_dynamicBody)
+			startingPosition = position;
 		
 		// Set fixture properties and create
 		b2FixtureDef bodyFixture;
@@ -20,6 +34,7 @@ namespace rigid
 		bodyFixture.density = density;
 		bodyFixture.friction = friction;
 		bodyFixture.restitution = restitution;
+		bodyFixture.isSensor = isSensor;
 
 		body->CreateFixture(&bodyFixture);
 
@@ -67,6 +82,8 @@ namespace rigid
 
 	void RigidBody::Render(sf::RenderWindow & window)
 	{
+		if (!isVisible) return;
+
 		switch (rigidShape->GetType())
 		{
 			case b2Shape::e_circle:
@@ -105,8 +122,14 @@ namespace rigid
 			default:
 				break;
 		}
+	}
 
-		
+	void RigidBody::Reset()
+	{
+		// Reset body properties
+		body->SetTransform(startingPosition, 0.f);
+		body->SetLinearVelocity({ 0.f, 0.f });
+		body->SetAngularVelocity(0.f);
 	}
 
 }

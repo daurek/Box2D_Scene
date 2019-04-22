@@ -14,14 +14,15 @@ using namespace rigid;
 
 int main ()
 {
+	// Create window
     sf::RenderWindow window(sf::VideoMode(1024, 800), "Box2D Rigid Bodies", sf::Style::Titlebar | sf::Style::Close, sf::ContextSettings(32));
     window.setVerticalSyncEnabled (true);
 
+	// Create scene with given xml file
 	Scene scene{ "../../assets/scene.xml" };
 
     bool running = true;
 
-	
     sf::Clock timer;
     float deltaTime = 0.017f;          // ~60 fps
 

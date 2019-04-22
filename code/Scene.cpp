@@ -1,123 +1,45 @@
+/// ----------------------------------------------------------------------------------------------------------------------
+/// BOX2D SCENE
+/// \class rigid::Scene
+///
+/// \author Ilyass Sofi Hlimi
+/// \date 22/04/2019
+///
+/// Contact: ilyassgame@gmail.com
+/// ----------------------------------------------------------------------------------------------------------------------
+
+// Header
+#include "Scene.hpp"
+
 // System
 #include <iostream>
-
 // Libraries
 #include "rapidxml_utils.hpp"
 // Project
-#include "Scene.hpp"
 #include "ContactListener.hpp"
-#include "Elevator.hpp"
 #include "RectangleArea.hpp"
+#include "Joint.hpp"
+#include "Car.hpp"
+#include "Platform.hpp"
+#include "Elevator.hpp"
+#include "Goal.hpp"
+#include "Player.hpp"
+#include "Fire.hpp"
+
 
 namespace rigid
 {
-	Scene::Scene(const std::string & filePath, b2Vec2 gravity)
+	Scene::Scene(const std::string & filePath, b2Vec2 gravity) : physicsWorld(new b2World(gravity))
 	{
-		physicsWorld = new b2World(gravity);
+		// Loads entire scene
 		LoadScene(filePath);
 
-		ContactListener * contactListenerInstance = new ContactListener{};
-		physicsWorld->SetContactListener(contactListenerInstance);
+		// Set world Colision Listener
+		physicsWorld->SetContactListener(new ContactListener{});
 
-	//	 
-	//	std::shared_ptr< GameObject > car = std::make_shared< GameObject >();
-
-	//	b2PolygonShape  polygonRigidShape;
-	//	polygonRigidShape.SetAsBox(30, 10);
-	//	std::shared_ptr< RigidBody > chassis = std::make_shared< RigidBody >(
-	//		RigidBody{ *physicsWorld, { 41, 120 }, b2BodyType::b2_dynamicBody, &polygonRigidShape, sf::Color::Yellow, 2.f, 1.f, 0.5f, 0.2f});
-	//	
-	//	//b2PolygonShape  axle1Shape;
-	//	//axle1Shape.SetAsBox(2, 6);
-	//	//std::shared_ptr< RigidBody > axle1 = std::make_shared< RigidBody >(RigidBody{ *physicsWorld, { 20, 100 }, b2BodyType::b2_dynamicBody, &axle1Shape, sf::Color::Red});
-
-	//	//b2PolygonShape  axle2Shape;
-	//	//axle2Shape.SetAsBox(2, 6);
-	//	//std::shared_ptr< RigidBody > axle2 = std::make_shared< RigidBody >(RigidBody{ *physicsWorld,{ 60, 100 }, b2BodyType::b2_dynamicBody, &axle1Shape, sf::Color::Red });
-
-	//	b2CircleShape wheel1Shape;
-	//	wheel1Shape.m_radius = 10;
-	//	std::shared_ptr< RigidBody > wheel1 = std::make_shared< RigidBody >(RigidBody{
-	//		*physicsWorld,{ 20, 90 }, b2BodyType::b2_dynamicBody, &wheel1Shape, sf::Color::Blue, 0.3f, 1.f, 5.f, 0.2f });
-
-	//	b2CircleShape wheel2Shape;
-	//	wheel2Shape.m_radius = 10;
-	//	std::shared_ptr< RigidBody > wheel2 = std::make_shared< RigidBody >(RigidBody{
-	//		*physicsWorld,{ 60, 90 }, b2BodyType::b2_dynamicBody, &wheel1Shape, sf::Color::Blue, 0.3f, 1.f, 5.f, 0.2f });
-	//	
-	////	b2PrismaticJointDef jointDef;
-	////	jointDef.Initialize(chassis->body, axle1->body, axle1->body->GetWorldCenter(), b2Vec2(0, 1));
-	/////*	jointDef.lowerTranslation = -0.1;
-	////	jointDef.upperTranslation = 0.1;
-	////	jointDef.enableLimit = true;*/
-
-	////	std::shared_ptr< Joint > spring1 = std::make_shared< Joint >(Joint{ *physicsWorld, chassis, axle1, &jointDef });
-	////	jointDef.Initialize(chassis->body, axle2->body, axle2->body->GetWorldCenter(), chassis->body->GetWorldCenter());
-	////	std::shared_ptr< Joint > spring2 = std::make_shared< Joint >(Joint{ *physicsWorld, chassis, axle2, &jointDef });
-
-
-	//	b2RevoluteJointDef def;
-	//	def.Initialize(chassis->body, wheel1->body, wheel1->body->GetWorldCenter());
-	//	def.enableMotor = true;
-	//	def.maxMotorTorque = -1000;
-	//	def.motorSpeed = -90000;//90 degrees per second
-	//	std::shared_ptr< Joint > motor1 = std::make_shared< Joint >(Joint{ *physicsWorld, chassis, wheel1, &def });
-	//	//def.Initialize(chassis->body, wheel2->body, wheel2->body->GetWorldCenter());
-	//	//std::shared_ptr< Joint > motor2 = std::make_shared< Joint >(Joint{ *physicsWorld, chassis, wheel2, &def });
-
-
-
-	//	car->rigidBodies.push_back(chassis);
-	//	//car->rigidBodies.push_back(axle1);
-	//	//car->rigidBodies.push_back(axle2);
-	//	car->rigidBodies.push_back(wheel1);
-	//	car->rigidBodies.push_back(wheel2);
-	//	//car->joints.push_back(spring1);
-	//	//car->joints.push_back(spring2);
-	//	car->joints.push_back(motor1);
-	//	//car->joints.push_back(motor2);
-	//	gameObjects["car"] = car;
-	//	
-	//	b2CircleShape wheel12aShape;
-		/*wheel12aShape.m_radius = 2;
-		b2CircleShape wheel1aShape;
-		wheel1aShape.m_radius = 15;
-		std::shared_ptr< RigidBody > test = std::make_shared< RigidBody >(RigidBody{
-			*physicsWorld,{ 200, 100 }, b2BodyType::b2_dynamicBody, &wheel1aShape, sf::Color::Blue, 0.3f, 1.f, 5.f, 0.2f });
-		std::shared_ptr< RigidBody > test2 = std::make_shared< RigidBody >(RigidBody{
-			*physicsWorld,{ 210, 120 }, b2BodyType::b2_dynamicBody, &wheel12aShape, sf::Color::Blue, 0.3f, 1.f, 5.f, 0.2f });*/
-			
-		//b2RevoluteJointDef defa;
-		//defa.Initialize(test->body, test2->body, test->body->GetWorldCenter());
-		//defa.enableMotor = true;
-		//defa.maxMotorTorque = 170;
-		//defa.motorSpeed = 3000000;//90 degrees per second
-		//std::shared_ptr< Joint > motor12 = std::make_shared< Joint >(Joint{ *physicsWorld, test, test2, &defa });
-
-		//std::shared_ptr< GameObject > wheelTest = std::make_shared< GameObject >();
-		//wheelTest->rigidBodies.push_back(test);
-		//wheelTest->rigidBodies.push_back(test2);
-		//wheelTest->joints.push_back(motor12);
-		//gameObjects["test"] = wheelTest;
-		//motor1->SetMotorSpeed(30000);
-		//motor2->SetMotorSpeed(30000);
-		//motor1->SetMaxMotorTorque(4000);
-		//motor2->SetMaxMotorTorque(4000);
-
-		//joint1->SetMaxMotorForce(300);
-		////spring1.SetMotorSpeed(-4*Math.pow(spring1.GetJointTranslation(), 1));
-		//joint1->SetMotorSpeed(1000);
-
-		//joint2->SetMaxMotorForce(1000);
-		//joint2->SetMotorSpeed(1000);
-
-		//chassis->body->ApplyTorque(300, true);
-		
-
-
-		//motor1.SetMaxMotorTorque(input.isPressed(40) || input.isPressed(38) ? 17 : 0.5);
-		particleEmitters.push_back(std::make_shared<CircleParticleEmitter>(30, &RectangleArea{ {500.f, 700.f}, {30, 60 } }, sf::Vector2f{ 0.f, -0.05f }));
-
+		// Start every GameObject to it's initial state
+		for (auto & gameObject : gameObjects)
+			gameObject.second->Start();
 	}
 		
 	void Scene::LoadScene(const std::string & filePath)
@@ -132,6 +54,63 @@ namespace rigid
 
 		// Load Scene Data
 		LoadGameObjects(doc.first_node()->first_node());
+
+		//_______________________________________________Joints_______________________________________________
+		// I was going to add joints to the xml but it would take more time since I have to read both objects and all their properties
+
+		// Elevator Joint
+		b2PrismaticJointDef prismaticJointDef;
+		prismaticJointDef.enableMotor		= true;
+		prismaticJointDef.maxMotorForce		= 200000.f;
+		prismaticJointDef.enableLimit		= true;
+		prismaticJointDef.lowerTranslation	= 0.f;
+		prismaticJointDef.upperTranslation	= 405.f;
+		prismaticJointDef.localAxisA.Set(0.f, 1.f);
+		prismaticJointDef.localAnchorA.Set(0.f, 70.f);
+
+		gameObjects["elevator1"]->AddJoint("elevatorJoint", std::make_shared< Joint >(*physicsWorld, gameObjects["elevator1Anchor"]->GetRigidBody("anchor"), gameObjects["elevator1"]->GetRigidBody("elevator"), &prismaticJointDef));
+		gameObjects["elevator1Anchor"]->isVisible = false;
+
+		prismaticJointDef.upperTranslation	= 155.f;
+		prismaticJointDef.localAnchorA.Set(0.f, 320.f);
+		gameObjects["elevator2"]->AddJoint("elevatorJoint", std::make_shared< Joint >(*physicsWorld, gameObjects["elevator2Anchor"]->GetRigidBody("anchor"), gameObjects["elevator2"]->GetRigidBody("elevator"), &prismaticJointDef));
+		gameObjects["elevator2Anchor"]->isVisible = false;
+
+		// Cache Car 
+		std::shared_ptr< Car > car = std::dynamic_pointer_cast<Car>(gameObjects["car"]);
+
+		// Wheel Joints
+		b2RevoluteJointDef revoluteDef;
+		revoluteDef.referenceAngle = 0;
+		revoluteDef.localAnchorA.Set(-30, -20);
+		revoluteDef.enableMotor = true;
+		revoluteDef.maxMotorTorque = 130000;
+		car->AddJoint("wheel1Joint", std::make_shared< Joint >(*physicsWorld, car->GetRigidBody("chassis"), car->GetRigidBody("wheel1"), &revoluteDef));
+
+		revoluteDef.localAnchorA.Set(30, -20);
+		car->AddJoint("wheel2Joint", std::make_shared< Joint >(*physicsWorld, car->GetRigidBody("chassis"), car->GetRigidBody("wheel2"), &revoluteDef));
+
+		b2WeldJointDef weldDef;
+		weldDef.localAnchorA.Set(-27, 20);
+		car->AddJoint("gripLeftJoint", std::make_shared< Joint >(*physicsWorld, car->GetRigidBody("chassis"), car->GetRigidBody("gripLeft"), &weldDef));
+		weldDef.localAnchorA.Set(27, 20);
+		car->AddJoint("gripRightJoint", std::make_shared< Joint >(*physicsWorld, car->GetRigidBody("chassis"), car->GetRigidBody("gripRight"), &weldDef));
+
+		b2RevoluteJointDef closerJoint;
+		closerJoint.enableMotor = true;
+		closerJoint.maxMotorTorque = 100000;
+		closerJoint.enableLimit = true;
+		closerJoint.lowerAngle = -3.f;
+		closerJoint.upperAngle = 0.5f;
+		closerJoint.localAnchorA.Set(0, 12);
+		closerJoint.localAnchorB.Set(25, 0);
+		car->AddJoint("closerJoint", std::make_shared< Joint >(*physicsWorld, car->GetRigidBody("gripLeft"), car->GetRigidBody("closer"), &closerJoint));
+
+		weldDef.localAnchorA.Set(70, 0);
+		car->AddJoint("waterJoint", std::make_shared< Joint >(*physicsWorld, car->GetRigidBody("chassis"), car->GetRigidBody("water"), &weldDef));
+
+		// Setup fire scene reference 
+		std::dynamic_pointer_cast<Fire>(gameObjects["fire"])->scene = this;
 
 		std::cout << "\n\n________Scene  Loaded________" << std::endl;
 	}
@@ -149,24 +128,40 @@ namespace rigid
 			std::shared_ptr< GameObject > gameObject = LoadGameObject(gameObjectNode);
 			// Add it to the map if it exists
 			if (gameObject)
-			{
 				gameObjects[gameObjectId] = gameObject;
-			}
-			else std::cout << "\n GameObject has not been loaded" << std::endl;
+			else 
+				std::cout << "\n GameObject has not been loaded" << std::endl;
 		}
 	}
 
 	std::shared_ptr< GameObject > Scene::LoadGameObject(rapidxml::xml_node<>* gameObjectNode)
 	{
-		std::shared_ptr< GameObject > gameObject = std::make_shared< GameObject >();
+		std::shared_ptr< GameObject > gameObject;
 
+		// Create class by classType
+		std::string classType = gameObjectNode->first_attribute("classType")->value();
+		if		(classType == "Player")
+			gameObject = std::make_shared< Player >();
+		else if (classType == "Platform")
+			gameObject = std::make_shared< Platform >();
+		else if (classType == "Elevator")
+			gameObject = std::make_shared< Elevator >();
+		else if (classType == "Goal")
+			gameObject = std::make_shared< Goal >();
+		else if (classType == "Fire")
+			gameObject = std::make_shared< Fire >();
+		else if (classType == "Car")
+			gameObject = std::make_shared< Car >();
+
+		// Loop RigidBodies and create them
 		for (rapidxml::xml_node<>* rigidBodyNode = gameObjectNode->first_node(); rigidBodyNode; rigidBodyNode = rigidBodyNode->next_sibling())
 		{
 			// Get RigidBody
+			std::string classType = rigidBodyNode->first_attribute("name")->value();
 			std::shared_ptr< RigidBody > rigidBody = LoadRigidBody(rigidBodyNode);
 			// Add it to the list if it exists
 			if (gameObject)
-				gameObject->rigidBodies.push_back(rigidBody);
+				gameObject->AddRigidbody(classType, rigidBody);
 			else 
 				std::cout << "\n RigidBody has not been loaded";
 		}
@@ -182,7 +177,7 @@ namespace rigid
 		// _______________________________________________________________________ Get Common properties
 
 		// Get type
-		std::string shapeType = rigidBodyNode->first_attribute()->value();
+		std::string shapeType = rigidBodyNode->first_attribute("type")->value();
 
 		// Get Position
 		rapidxml::xml_node<>* positionNode = rigidBodyNode->first_node("position");
@@ -262,20 +257,32 @@ namespace rigid
 			std::string rigidBodyType = rigidBodyNode->first_attribute("bodyType")->value();
 			if (rigidBodyType == "static")
 				bodyType = b2_staticBody;
-			else if(rigidBodyType == "dynamic")
-				bodyType = b2_dynamicBody;
 			else if (rigidBodyType == "kinetic")
 				bodyType = b2_kinematicBody;
 			else bodyType = b2_dynamicBody;
 			std::cout << "				Body Type: " << rigidBodyType << std::endl;
 
+			// Get Density value
+			rapidxml::xml_attribute<>* densityValueNode = rigidBodyNode->first_attribute("density");
+			float densityValue = 0.1f;
+			if (densityValueNode)
+				densityValue = std::stof(densityValueNode->value());
+
+
 			// Get Gravity scale
 			rapidxml::xml_attribute<>* gravityScaleNode = rigidBodyNode->first_attribute("gravityScale");
-			float gravityScale = std::stof(gravityScaleNode->value());
+			float gravityScale = 1.f;
+			if (gravityScaleNode)
+				gravityScale = std::stof(gravityScaleNode->value());
+
+			// Get Sensor state
+			rapidxml::xml_attribute<>* isSensorNode = rigidBodyNode->first_attribute("isSensor");
+			bool isSensor = false;
+			if (isSensorNode)
+				isSensor = std::stoi(isSensorNode->value()) == 1;
 
 			// Create rigid body with all the properties
-			// rigidBody = std::make_shared< Elevator >(Elevator{ *physicsWorld,{ position.x, position.y }, bodyType, rigidShape, color, 0.1f, gravityScale });
-			rigidBody = std::make_shared< RigidBody >(RigidBody{ *physicsWorld,{ position.x, position.y }, bodyType, rigidShape, color, 0.1f, gravityScale });
+			rigidBody = std::make_shared< RigidBody >(*physicsWorld, b2Vec2{ position.x, position.y }, bodyType, rigidShape, color, densityValue, gravityScale, 1.f, 1.f, isSensor);
 		}
 		else
 			std::cout << "\n Type " << shapeType << " incorrect or not supported";
@@ -285,24 +292,38 @@ namespace rigid
 
 	void Scene::Update(float deltaTime)
 	{
-		//gameObjects["car"]->rigidBodies[0]->body->ApplyForceToCenter({ 100000,100000 }, true);
-		//static_cast<b2RevoluteJoint *>(gameObjects["car"]->joints[0]->joint)->SetMotorSpeed(70000);
-		//static_cast<b2RevoluteJoint *>(gameObjects["car"]->joints[0]->joint)->SetMaxMotorTorque(30);
-		//static_cast<b2RevoluteJoint *>(gameObjects["car"]->joints[1]->joint)->SetMotorSpeed(70000);
-		//static_cast<b2RevoluteJoint *>(gameObjects["car"]->joints[1]->joint)->SetMaxMotorTorque(30);
+		// Reset world if R is pressed
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			Reset();
+
+		// Physics Step
 		physicsWorld->Step(deltaTime, 8, 4);
 
-		for (auto & particleEmitter : particleEmitters)
-			particleEmitter->Update(deltaTime);
+		// Update every gameobject
+		for (auto & gameObject : gameObjects)
+		{
+			gameObject.second->Update(deltaTime);
+			// Check if it needs to be reseted (has to be outside Step, that's why there's a flag)
+			if (gameObject.second->toReset)
+			{
+				gameObject.second->toReset = false;
+				gameObject.second->Reset();
+			}
+		}
 	}
 
 	void Scene::Render(sf::RenderWindow & window)
 	{
-		for (auto & gameObject : gameObjects)
+		// Render everything
+		for (auto & gameObject : gameObjects)	
 			gameObject.second->Render(window);
+	}
 
-		for (auto & particleEmitter : particleEmitters)
-			particleEmitter->Render(window);
+	void Scene::Reset()
+	{
+		// Reset everything
+		for (auto & gameObject : gameObjects)
+			gameObject.second->toReset = true;
 	}
 }
 

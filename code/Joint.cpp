@@ -1,6 +1,18 @@
-#include "Joint.hpp"
-#include "RigidBody.hpp"
+/// ----------------------------------------------------------------------------------------------------------------------
+/// BOX2D SCENE
+/// \class rigid::Joint
+///
+/// \author Ilyass Sofi Hlimi
+/// \date 22/04/2019
+///
+/// Contact: ilyassgame@gmail.com
+/// ----------------------------------------------------------------------------------------------------------------------
 
+// Header
+#include "Joint.hpp"
+
+// Project
+#include "RigidBody.hpp"
 
 namespace rigid
 {
